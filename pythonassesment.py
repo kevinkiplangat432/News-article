@@ -2,7 +2,7 @@ import re
 from collections import Counter
 
 
-def read_file(filename):
+def readFile(filename):
     try:
         with open(filename, "r", encoding="utf-8") as file:
             return file.read()
@@ -11,27 +11,27 @@ def read_file(filename):
         return ""
 
 
-def clean_text(text):
+def textCleanup(text):
     text = text.lower()
     text = re.sub(r'[^a-z0-9\s]', '', text)
     return text
 
 
 #count specific word
-def count_specific_word(text, target_word):
+def countSpecificWord(text, target_word):
     words = text.split()
     return words.count(target_word.lower())
 
 
 #most common word
-def get_most_common_word(text):
+def getMostCommonWord(text):
     words = re.findall(r'\b\w+\b', text.lower())
     counter = Counter(words)
     return counter.most_common(1)[0] if counter else ("", 0)
 
 
 #average word length
-def calculate_average_word_length(text):
+def calculateAverageWordLength(text):
     words = text.split()
 
     if not words:
@@ -45,7 +45,7 @@ def calculate_average_word_length(text):
 
 
 #count paragraphs
-def count_paragraphs(text):
+def countParagraphs(text):
     paragraphs = text.strip().split("\n\n")
     count = 0
 
@@ -57,7 +57,7 @@ def count_paragraphs(text):
 
 
 # count sentences 
-def count_sentences(text):
+def countSentences(text):
     count = 0
 
     for char in text:  
@@ -78,22 +78,22 @@ def get_valid_word():
             print("Please enter a valid word.")
 
 
-# Main function
+
 def main():
     filename = "newsArticle.txt"
 
-    text = read_file(filename)
+    text = readFile(filename)
 
     if not text:
         return
 
-    cleaned_text = clean_text(text)
+    cleaned_text = textCleanup(text)
 
     target_word = get_valid_word()
 
     print("\n text analysis ")
 
-    word_count = count_specific_word(cleaned_text, target_word)
+    word_count = countSpecificWord(cleaned_text, target_word)
     print(f"Occurrences of '{target_word}': {word_count}")
    
     if word_count > 0:
@@ -101,17 +101,17 @@ def main():
     else:
         print("The word was not found in the article.")
 
-    word, count = get_most_common_word(cleaned_text)
+    word, count = getMostCommonWord(cleaned_text)
     print(f"Most common word: '{word}' (used {count} times)")
-    avg_length = calculate_average_word_length(cleaned_text)
+    avg_length = calculateAverageWordLength(cleaned_text)
     print(f"Average word length: {avg_length:.2f}")
 
   
-    paragraphs = count_paragraphs(text)
+    paragraphs = countParagraphs(text)
     print(f"Number of paragraphs: {paragraphs}")
 
   
-    sentences = count_sentences(text)
+    sentences = countSentences(text)
     print(f"Number of sentences: {sentences}")
 
 
