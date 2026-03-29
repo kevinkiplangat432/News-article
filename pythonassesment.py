@@ -1,8 +1,6 @@
 import re
 from collections import Counter
 
-
-#Read file
 def read_file(filename):
     try:
         with open(filename, "r", encoding="utf-8") as file:
@@ -11,21 +9,17 @@ def read_file(filename):
         print("File not found. Make sure it's in the same directory.")
         return ""
 
-
-#Clean text (for word-based analysis)
 def clean_text(text):
     text = text.lower()
     text = re.sub(r'[^a-z0-9\s]', '', text)
     return text
 
-
-#Count specific word
 def count_specific_word(text, target_word):
     words = text.split()
     return words.count(target_word.lower())
 
 
-#Most common word
+# most common word
 def get_most_common_word(text):
     words = text.split()
     counter = Counter(words)
@@ -54,7 +48,7 @@ def count_sentences(text):
     return len([s for s in sentences if s.strip()])
 
 
-#Main program
+#Main function
 def main():
     filename = "newsArticle.txt" 
 
@@ -69,11 +63,11 @@ def main():
 
     print("\nTxt analysis results")
 
-    # Word count
+    # word count
     word_count = count_specific_word(cleaned_text, target_word)
     print(f"Occurrences of '{target_word}': {word_count}")
 
-    # Most common word
+    # most common word
     word, count = get_most_common_word(cleaned_text)
     print(f"Most common word: '{word}' (used {count} times)")
 
