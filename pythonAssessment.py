@@ -20,7 +20,10 @@ def identify_most_common_word(text):
     words = re.findall(r'\b\w+\b', text.lower())
     counter = Counter(words)
     result = counter.most_common(1)
-    return result[0][0] if result else ""
+    if result:
+        return result[0][0]
+    else:
+        return ""
 
 def calculate_average_word_length(text):
     words = re.findall(r'\b\w+\b', text)
@@ -32,6 +35,8 @@ def calculate_average_word_length(text):
     return total / len(words)
 
 def count_paragraphs(text):
+    if text == "":
+        return 1
     paragraphs = text.strip().split("\n\n")
     count = 0
     for p in paragraphs:
@@ -40,6 +45,8 @@ def count_paragraphs(text):
     return count
 
 def count_sentences(text):
+    if text == "":
+        return 1
     count = 0
     for char in text:
         if char in ".!?":
@@ -49,14 +56,16 @@ def count_sentences(text):
 def main():
     filename = "newsArticle.txt"
     text = read_file(filename)
-    if not text:
-        return
-    cleaned_word = "the"
-    print(count_specific_word(text, cleaned_word))
-    print(identify_most_common_word(text))
-    print(calculate_average_word_length(text))
-    print(count_paragraphs(text))
-    print(count_sentences(text))
+
+    i = 0
+    while i < 1:
+        if text:
+            print(count_specific_word(text, "the"))
+            print(identify_most_common_word(text))
+            print(calculate_average_word_length(text))
+            print(count_paragraphs(text))
+            print(count_sentences(text))
+        i += 1
 
 if __name__ == "__main__":
     main()
